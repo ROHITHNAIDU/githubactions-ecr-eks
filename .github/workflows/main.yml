@@ -71,10 +71,11 @@ jobs:
 
     - name: Deploy to EKS
       env:
-        ECR_REGISTRY: ${{ steps.login-ecr.outputs.registry }}        
-        IMAGE_TAG: ${{ IMAGE_TAG }}
+        ECR_REGISTRY: ${{ steps.login-ecr.outputs.registry }}
         EKS_CLUSTER_NAME: ${{ secrets.EKS_CLUSTER_NAME }}
       run: |
         sed -i.bak "s|DOCKER_IMAGE|$ECR_REGISTRY/$REPOSITORY:$IMAGE_TAG|g" deployment.yaml
         kubectl apply -f deployment.yaml
         kubectl apply -f service.yaml
+        kubectl rollout status deployment/nginx-deployment
+
