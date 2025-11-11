@@ -56,7 +56,6 @@ jobs:
       run: aws eks update-kubeconfig --name ${{ secrets.EKS_CLUSTER_NAME }} --region ${{ secrets.AWS_REGION }}
 
     - name: Deploy to EKS
-      env:
       run: |
         kubectl apply -f fastapi-deploy.yaml
         kubectl apply -f fastapi-service.yaml        
