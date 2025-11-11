@@ -16,7 +16,7 @@ spec:
     spec:
       containers:
         - name: nginx
-          image: <ECR_REGISTRY>/<ECR_REPOSITORY>:latest
+          image: DOCKER_IMAGE
           ports:
             - containerPort: 80
           imagePullPolicy: Always
