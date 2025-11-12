@@ -1,7 +1,9 @@
 name: CI/CD for EKS
-on:
-  push:
-    branches: [ master ]
+on: workflow_dispatch
+# on:
+#   push:
+#     branches: [ master ]
+    
 jobs:
   build:
     name: CI/CD for for app deployment on EKS
@@ -67,5 +69,5 @@ jobs:
         sed -i.bak "s|DOCKER_IMAGE|$ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG|g" deployment.yaml
         kubectl apply -f deployment.yaml
         kubectl apply -f service.yaml
-        kubectl rollout status deployment/nginx-deployment
+      #  kubectl rollout status deployment/nginx-deployment
 
