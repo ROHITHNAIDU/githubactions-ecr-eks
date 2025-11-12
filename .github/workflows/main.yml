@@ -34,7 +34,7 @@ jobs:
           REGISTRY: ${{ steps.login-ecr.outputs.registry }}
           REPOSITORY: diigoo-arth # your ECR repository name
         run: |
-          IMAGE_TAG: $(git rev-parse --short "$GITHUB_SHA")
+          IMAGE_TAG=$(git rev-parse --short "$GITHUB_SHA")
           docker build -t $REGISTRY/$REPOSITORY:$IMAGE_TAG .
           docker push $REGISTRY/$REPOSITORY:$IMAGE_TAG
 
@@ -47,7 +47,7 @@ jobs:
           REPOSITORY: diigoo-arth # your ECR repository name
           EKS_CLUSTER_NAME: ${{ secrets.EKS_CLUSTER_NAME }}
         run: |
-          IMAGE_TAG: $(git rev-parse --short "$GITHUB_SHA")
+          IMAGE_TAG=$(git rev-parse --short "$GITHUB_SHA")
           sed -i.bak "s|DOCKER_IMAGE|$ECR_REGISTRY/$REPOSITORY:$IMAGE_TAG|g" deployment.yaml
           kubectl apply -f deployment.yaml
           kubectl apply -f service.yaml
